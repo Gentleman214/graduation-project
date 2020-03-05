@@ -3,11 +3,11 @@ import VueRouter from 'vue-router'
 import app from './App.vue'
 import router from './router/index'
 import './assets/style/main.css'
-import {
-  Table
-} from 'ant-design-vue'
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+Vue.config.productionTip = false
 Vue.use(VueRouter)
-Vue.use(Table)
+Vue.use(Antd)
 
 var vm = new Vue({
   el: '#app',

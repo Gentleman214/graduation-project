@@ -1,0 +1,51 @@
+/****************width and height**************/
+.full-width {width: 100%;}
+.full-height {height: 100%;}
+
+/****************margin**************/
+.mt-20 {margin-top: 20px;}
+.mr-20 {margin-right: 20px;}
+.mb-20 {margin-bottom: 20px;}
+.ml-20 {margin-left: 20px;}
+
+/****************flexbox**************/
+.flex {display:flex;}
+.inline-flex {display:inline-flex;}
+.flex-center{justify-content: center;align-items: center;}
+/*横向或纵向*/
+.flex-row {flex-direction:row;}
+.flex-col {flex-direction:column;}
+.flex-row-reverse {flex-direction:row-reverse;}
+.flex-col-reverse {flex-direction:column-reverse;}
+.flex-wrap {flex-wrap:wrap;}
+/*主轴对齐方式*/
+.flex-justify-start {justify-content:flex-start;}
+.flex-justify-end {justify-content:flex-end;}
+.flex-justify-center {justify-content:center;}
+.flex-justify-between {justify-content:space-between;}
+.flex-justify-around {justify-content:space-around;}
+/*侧轴对齐方式*/
+.flex-align-start {align-items:flex-start;}
+.flex-align-end {align-items:flex-end;}
+.flex-align-center {align-items:center;}
+.flex-align-baseline {align-items:baseline;}
+.flex-align-stretch {align-items:stretch;}
+/*主轴换行时行在侧轴的对齐方式，必须定义flex-wrap为换行*/
+.flex-content-start {align-content:flex-start;}
+.flex-content-end {align-content:flex-end;}
+.flex-content-center {align-content:center;}
+.flex-content-between {align-content:space-between;}
+.flex-content-around {align-content:space-around;}
+.flex-content-stretch {align-content:stretch;}
+/*允许子元素收缩*/
+.flex-child-grow {flex-grow: 1;}/*允许拉伸*/
+.flex-child-shrink {flex-shrink: 1;}/*允许收缩*/
+.flex-child-noshrink {flex-shrink: 0;}/*不允许收缩*/
+.flex-child-average {flex:1;}/*平均分布，兼容旧版必须给宽度*/
+.flex-child-first {order: 1;}/*排第一个*/
+/*子元素在侧轴的对齐方式*/
+.flex-child-align-start {align-self:flex-start;}
+.flex-child-align-end {align-self:flex-end;}
+.flex-child-align-center {align-self:center;}
+.flex-child-align-baseline {align-self:baseline;}
+.flex-child-align-stretch {align-self:stretch;}
