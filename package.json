@@ -1,0 +1,46 @@
+{
+  "name": "graduation-project",
+  "version": "1.0.0",
+  "description": "毕设",
+  "main": "main.js",
+  "scripts": {
+    "test": "",
+    "dev": "webpack-dev-server --config build/webpack.config.js --open --host 127.0.0.1 --port 3000 --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gentleman214/graduation-project.git"
+  },
+  "author": "chenjun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gentleman214/graduation-project/issues"
+  },
+  "homepage": "https://github.com/Gentleman214/graduation-project#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/runtime": "^7.7.6",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-component": "^1.1.1",
+    "css-loader": "^3.3.2",
+    "file-loader": "^5.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^7.3.1",
+    "style-loader": "^1.0.1",
+    "url-loader": "^3.0.0",
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^3.6.0",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "dependencies": {
+    "ant-design-vue": "^1.4.12",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.3"
+  }
+}
