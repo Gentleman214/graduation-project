@@ -17,7 +17,7 @@
     name: "login",
     methods: {
       login () {
-        this.$router.push('/home')
+        this.$router.push('/')
       }
     }
   }

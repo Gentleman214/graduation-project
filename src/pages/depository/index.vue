@@ -1,10 +1,10 @@
 <template>
-  <div>欢迎使用</div>
+  <page></page>
 </template>
 
 <script>
   export default {
-    name: "home"
+    name: "index"
   }
 </script>
 
