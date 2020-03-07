@@ -6,7 +6,8 @@ function load (component) {
 export default {
   path: '/',
   component: layout,
+  meta: { requireAuth: true },
   children: [
-    { path: '/', component: load('panel/index'), meta: { title: '控制面板' } }
+    { path: '', component: load('panel/index'), meta: { title: '仓储系统管理后台', requireAuth: true } }
   ]
 }

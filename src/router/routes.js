@@ -19,10 +19,6 @@ export default [
   role,
   setting,
   {
-    path: '/',
-    component: layout
-  },
-  {
     path: '/login',
     component: login
   }
