@@ -1,10 +1,10 @@
 <template>
   <div class="full-height flex flex-align-center flex-justify-center">
-    <div class="login-form flex flex-col flex-justify-around">
-      <a-input placeholder="用户名" class="max-w-200" v-model="userName">
+    <div class="login-form flex flex-col flex-justify-center">
+      <a-input placeholder="用户名" class="user-input" v-model="userName">
         <a-icon slot="prefix" type="user" />
       </a-input>
-      <a-input placeholder="密码" class="max-w-200" v-model="password">
+      <a-input placeholder="密码" class="user-input" v-model="password">
         <a-icon slot="prefix" type="lock" />
       </a-input>
       <a-button type="primary" @click="login">登录</a-button>
@@ -51,9 +51,14 @@
 
 <style scoped lang="scss">
   .login-form {
-    height: 150px;
+    height: 300px;
+    padding: 0 40px;
+    border: 1px solid #bfbfbf;
+    border-radius: 15px;
+    box-shadow:0 15px 25px rgba(0,0,0,0.5);
   }
-  .max-w-200 {
+  .user-input {
     max-width: 200px;
+    margin-bottom: 20px;
   }
 </style>

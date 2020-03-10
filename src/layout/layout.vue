@@ -42,7 +42,7 @@
         />
       </a-layout-header>
       <a-layout-content
-        :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '500px' }"
+        :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '800px' }"
       >
         <router-view></router-view>
       </a-layout-content>
