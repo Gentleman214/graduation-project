@@ -7,6 +7,7 @@
     </template>
     <template slot="content">
       内容区
+      {{$store.state.userInfo}}
     </template>
   </page>
 </template>

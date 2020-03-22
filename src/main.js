@@ -7,12 +7,14 @@ import './assets/style/main.css'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import cookie from 'js-cookie'
+import api from './api'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(Antd)
 Vue.prototype.$store = store
 Vue.prototype.$cookie = cookie
+Vue.prototype.$api = api
 Vue.prototype.$message.config({
   top: `50px`,
   duration: 1,

@@ -2,7 +2,7 @@
   <a-layout id="layout">
     <a-layout-sider :trigger="null" collapsible v-model="collapsed">
       <div class="logo">
-        <a-icon type="home" style="margin-left: 10px" />
+        <a-icon type="home" style="margin-left: 10px;" />
         仓储系统管理后台
       </div>
       <a-menu
@@ -42,7 +42,7 @@
         />
       </a-layout-header>
       <a-layout-content
-        :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '800px' }"
+        :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '600px' }"
       >
         <router-view></router-view>
       </a-layout-content>
@@ -157,8 +157,12 @@
     margin: 16px;
     overflow: hidden;
   }
-  /*#layout .ant-layout-sider {*/
-  /*background: rgba(105, 111, 112, 0.51);*/
+  /*#layout .ant-layout-sider .ant-layout-sider-dark {*/
+    /*background: rgba(105, 111, 112, 0.51);*/
+    /*flex:0 0 230px;*/
+    /*max-width: 230px;*/
+    /*min-width: 230px;*/
+    /*width: 230px;*/
   /*}*/
   #layout .ant-menu {
     font-size: 16px;

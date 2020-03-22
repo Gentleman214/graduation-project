@@ -1,7 +1,7 @@
 <template>
   <div class="full-height flex flex-align-center flex-justify-center">
     <div class="login-form flex flex-col flex-justify-center">
-      <a-input placeholder="用户名" class="user-input" v-model="userName">
+      <a-input placeholder="员工号" class="user-input" v-model="staffId">
         <a-icon slot="prefix" type="user" />
       </a-input>
       <a-input placeholder="密码" class="user-input" v-model="password">
@@ -17,13 +17,13 @@
     name: "login",
     data () {
       return {
-        userName: '',
+        staffId: '',
         password: ''
       }
     },
     methods: {
       login () {
-        if (!this.userName) {
+        if (!this.staffId) {
           this.$message.error('请输入用户名')
           return
         }
@@ -31,19 +31,31 @@
           this.$message.error('请输入密码')
           return
         }
-        if (this.userName !== 'admin') {
-          this.$message.error('不存在该用户')
-          return
+        // this.$store.commit('setToken', '3482950')
+        // let millisecond = new Date().getTime()
+        // let expiresTime = new Date(millisecond + 60 * 1000 * 60 * 1) // cookie一小时失效
+        // this.$cookie.set('token', '3482950', { expires: expiresTime })
+        let params = {
+          staffId: this.staffId,
+          password: this.password
         }
-        if (this.password !== '123') {
-          this.$message.error('密码输入错误')
-          return
-        }
-        this.$store.commit('setToken', '3482950')
-        let millisecond = new Date().getTime()
-        let expiresTime = new Date(millisecond + 60 * 1000 * 60 * 1) // cookie一小时失效
-        this.$cookie.set('token', '3482950', { expires: expiresTime })
-        this.$router.replace('/')
+        this.$api.common.login(params).then(res => {
+          if (res?.code === 200) {
+            let userInfo = {
+              staffId: res.data.staffId,
+              name: res.data.name
+            }
+            this.$store.commit('setToken', res.data.token)
+            this.$store.commit('setUserInfo', userInfo)
+            let millisecond = new Date().getTime()
+            let expiresTime = new Date(millisecond + 60 * 1000 * 60 * 1) // cookie一小时失效
+            this.$cookie.set('token', res.data.token, { expires: expiresTime })
+            // this.$cookie.set('staffId', res.data.staffId, { expires: expiresTime })
+            this.$router.replace('/')
+          } else {
+            this.$message.error(res?.userMsg ? res.userMsg : res.msg)
+          }
+        })
       }
     }
   }
