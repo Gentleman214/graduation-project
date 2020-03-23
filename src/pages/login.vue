@@ -4,9 +4,9 @@
       <a-input placeholder="员工号" class="user-input" v-model="staffId">
         <a-icon slot="prefix" type="user" />
       </a-input>
-      <a-input placeholder="密码" class="user-input" v-model="password">
+      <a-input-password placeholder="密码" class="user-input" v-model="password">
         <a-icon slot="prefix" type="lock" />
-      </a-input>
+      </a-input-password>
       <a-button type="primary" @click="login">登录</a-button>
     </div>
   </div>
@@ -31,10 +31,6 @@
           this.$message.error('请输入密码')
           return
         }
-        // this.$store.commit('setToken', '3482950')
-        // let millisecond = new Date().getTime()
-        // let expiresTime = new Date(millisecond + 60 * 1000 * 60 * 1) // cookie一小时失效
-        // this.$cookie.set('token', '3482950', { expires: expiresTime })
         let params = {
           staffId: this.staffId,
           password: this.password
@@ -55,6 +51,8 @@
           } else {
             this.$message.error(res?.userMsg ? res.userMsg : res.msg)
           }
+        }).catch(err => {
+          this.$message.error('请稍后重试')
         })
       }
     }
