@@ -11,6 +11,18 @@
             <span class="flex flex-center mr-5 bold nowrap">姓名</span>
             <a-input class="max-w-100" v-model="screening.name" @keydown.enter="fetchData" allowClear></a-input>
           </div>
+          <div class="flex mr-20 mb-5">
+            <span class="flex flex-center mr-5 bold nowrap">角色</span>
+            <a-select class="min-w-100" v-model="authority.selected" allowClear>
+              <a-select-option
+                v-for="item in authority.list"
+                :key="item.key"
+                :value="item.key"
+              >
+                {{item.value}}
+              </a-select-option>
+            </a-select>
+          </div>
           <a-button icon="search" @click="fetchData">筛选</a-button>
         </div>
         <a-button icon="plus" type="primary">新增</a-button>
@@ -66,8 +78,8 @@
       dataIndex: 'authority',
       align: 'center',
       customRender: (text) => {
-        if (text === 0) return '默认角色'
-        if (text === 1) return '管理员'
+        if (text === 0) return '管理员'
+        if (text === 1) return '默认角色'
       }
     },
     {
@@ -85,6 +97,23 @@
     showQuickJumper: true,
     showSizeChanger: true
   }
+  const authority = {
+    selected: '',
+    list: [
+      {
+        key: '',
+        value: '全部'
+      },
+      {
+        key: 0,
+        value: '管理员'
+      },
+      {
+        key: 1,
+        value: '默认角色'
+      }
+    ]
+  }
   export default {
     name: "index",
     data () {
@@ -92,6 +121,7 @@
         list: [],
         columns,
         pagination,
+        authority,
         loading: false,
         screening: {
           staffId: '',
@@ -108,6 +138,7 @@
         let params = {
           current: this.pagination.current,
           size: this.pagination.pageSize,
+          authority: this.authority.selected,
           ...this.screening
         }
         this.$api.role.getUser(params).then(res => {
