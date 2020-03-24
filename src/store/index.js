@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     token: null,
     userInfo: null,
+    flagOfModifyPassword: null,
     menu: []
   },
   getters: {},
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     setMenu (state, data) {
       state.menu = data
+    },
+    setFlagOfModifyPassword (state, data) {
+      state.flagOfModifyPassword = data
     }
   },
   actions: {
