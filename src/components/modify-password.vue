@@ -1,12 +1,15 @@
 <template>
   <a-drawer
-    title="修改密码"
     placement="right"
     :closable="false"
     @close="closeDrawer"
     :visible="showDrawer"
     :width="500"
   >
+    <template slot="title">
+      <a-icon type="edit" />
+      修改密码
+    </template>
     <div class="flex flex-col">
       <div class="flex flex-child-grow mt-20">
         <span class="nowrap item">原密码：</span>

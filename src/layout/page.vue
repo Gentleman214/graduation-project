@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="page-header">
+    <div class="page-header" v-if="showHeader">
       <div class="flex flex-justify-between">
         <div class="flex-child-grow">
           <div class="page-title" v-if="showTitle">{{title||$route.meta.title}}</div>
@@ -26,6 +26,10 @@
       title: {
         type: String,
         default: ''
+      },
+      showHeader: {
+        type: Boolean,
+        default: true
       },
       description: {
         type: String,

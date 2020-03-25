@@ -34,7 +34,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0; max-height: 50px">
+      <a-layout-header style="background: #fff; padding: 0; max-height: 60px">
         <div class="flex flex-justify-between">
           <a-icon
             class="trigger"
@@ -44,16 +44,30 @@
          <div class="flex">
            <div class="mr-20">
              <a-dropdown>
-               <a-avatar class="padding" :size="32" icon="user" />
-               <a-menu slot="overlay">
+               <div class="mr-20">
+                 <a-avatar style="margin: 5px 5px" :size="25" icon="user" />
+                 {{$store.state.userInfo.name}}
+               </div>
+               <a-menu slot="overlay" style="margin-top: -15px">
                  <a-menu-item>
-                   <a href="javascript:;">1st menu item</a>
+                   <span @click="() => $router.push('userInfo')">
+                     <a-icon class="primary" type="idcard" />
+                     <span class="ml-10">个人信息</span>
+                   </span>
                  </a-menu-item>
                  <a-menu-item>
-                   <a href="javascript:;">2nd menu item</a>
+                   <span @click="() => $refs.changePassword.openDrawer()">
+                     <a-icon class="primary" type="edit" />
+                     <span class="ml-10">修改密码</span>
+                   </span>
                  </a-menu-item>
                  <a-menu-item>
-                   <a href="javascript:;">3rd menu item</a>
+                   <span>
+                     <a-badge dot>
+                       <a-icon class="primary" type="notification" />
+                     </a-badge>
+                     <span class="ml-10">消息通知</span>
+                   </span>
                  </a-menu-item>
                </a-menu>
              </a-dropdown>
@@ -63,17 +77,19 @@
         </div>
       </a-layout-header>
       <a-layout-content
-        :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '600px' }"
+        :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '500px' }"
       >
         <router-view></router-view>
       </a-layout-content>
     </a-layout>
+    <modify-password ref="changePassword"></modify-password>
   </a-layout>
 </template>
 
 <script>
   import Vue from 'vue'
   import page from './page.vue'
+  import modifyPassword from '../components/modify-password.vue'
   Vue.component('page', page)
   const menu = [
     {
@@ -150,6 +166,9 @@
   ]
   export default {
     name: "layout",
+    components: {
+      modifyPassword
+    },
     data() {
       return {
         collapsed: false,
@@ -161,7 +180,7 @@
 
 <style scoped>
   #layout .slider {
-    height: 100vh;
+    min-height: 100vh;
     box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
     z-index: 1;
   }

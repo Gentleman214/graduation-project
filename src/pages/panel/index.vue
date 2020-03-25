@@ -1,10 +1,5 @@
 <template>
-  <page>
-    <template slot="header">
-    </template>
-    <template slot="extra">
-      <a-button type="primary" icon="plus">添加</a-button>
-    </template>
+  <page :showTitle="false" :showHeader="false">
     <template slot="content">
       内容区
       {{$store.state.userInfo}}
