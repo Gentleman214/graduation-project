@@ -1,6 +1,6 @@
 <template>
   <a-layout id="layout">
-    <a-layout-sider :trigger="null" collapsible v-model="collapsed">
+    <a-layout-sider :trigger="null" collapsible v-model="collapsed" width="230" class="slider">
       <div class="logo">
         <a-icon type="home" style="margin-left: 10px;" />
         仓储系统管理后台
@@ -139,6 +139,12 @@
 </script>
 
 <style scoped>
+  #layout .slider {
+    height: 100vh;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+    z-index: 1;
+  }
+
   #layout .trigger {
     font-size: 18px;
     line-height: 64px;
@@ -150,20 +156,16 @@
   #layout .trigger:hover {
     color: #1890ff;
   }
+
   #layout .logo {
     height: 32px;
     color: white;
     font-size: 20px;
+    font-weight: 700;
     margin: 16px;
     overflow: hidden;
   }
-  /*#layout .ant-layout-sider .ant-layout-sider-dark {*/
-    /*background: rgba(105, 111, 112, 0.51);*/
-    /*flex:0 0 230px;*/
-    /*max-width: 230px;*/
-    /*min-width: 230px;*/
-    /*width: 230px;*/
-  /*}*/
+
   #layout .ant-menu {
     font-size: 16px;
     font-weight: 600;

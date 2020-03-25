@@ -7,13 +7,14 @@
     </template>
     <template slot="content">
       内容区
+      {{$store.state.userInfo}}
       <modify-password ref="drawer"></modify-password>
     </template>
   </page>
 </template>
 
 <script>
-  import modifyPassword from './components/modify-password.vue'
+  import modifyPassword from '../../components/modify-password.vue'
   export default {
     name: "index",
     components: { modifyPassword },

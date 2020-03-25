@@ -1,7 +1,7 @@
 <template>
   <div class="full-height flex flex-align-center flex-justify-center">
     <div class="login-form flex flex-col flex-justify-center">
-      <a-input placeholder="员工号" class="user-input" v-model="staffId" @keydown.enter="login">
+      <a-input ref="staffIdInput" placeholder="员工号" class="user-input" v-model="staffId" @keydown.enter="login">
         <a-icon slot="prefix" type="user" />
       </a-input>
       <a-input-password placeholder="密码" class="user-input" v-model="password" @keydown.enter="login">
@@ -20,6 +20,11 @@
         staffId: '',
         password: ''
       }
+    },
+    mounted () {
+      this.$nextTick(() => {
+        this.$refs.staffIdInput.focus()
+      })
     },
     methods: {
       login () {
@@ -47,7 +52,7 @@
             let millisecond = new Date().getTime()
             let expiresTime = new Date(millisecond + 60 * 1000 * 60 * 1) // cookie一小时失效
             this.$cookie.set('token', res.data.token, { expires: expiresTime })
-            // this.$cookie.set('staffId', res.data.staffId, { expires: expiresTime })
+            this.$cookie.set('staffId', res.data.staffId, { expires: expiresTime })
             this.$router.replace('/')
           } else {
             this.$message.error(res?.userMsg ? res.userMsg : res.msg)

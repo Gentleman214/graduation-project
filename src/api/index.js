@@ -9,6 +9,9 @@ export default {
     checkAuth (token) { // 效验token是否有效
       return fetch('/api/user/checkAuth',{ token }, 'post')
     },
+    getStaffInfo (id) { // 获取用户信息（简单信息）
+      return fetch(`/api/user/info/${id}`)
+    },
     getMenu() { // 动态获取菜单
       return fetch('')
     }
