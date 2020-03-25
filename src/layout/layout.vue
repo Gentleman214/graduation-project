@@ -35,11 +35,32 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0; max-height: 50px">
-        <a-icon
-          class="trigger"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="()=> collapsed = !collapsed"
-        />
+        <div class="flex flex-justify-between">
+          <a-icon
+            class="trigger"
+            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="()=> collapsed = !collapsed"
+          />
+         <div class="flex">
+           <div class="mr-20">
+             <a-dropdown>
+               <a-avatar class="padding" :size="32" icon="user" />
+               <a-menu slot="overlay">
+                 <a-menu-item>
+                   <a href="javascript:;">1st menu item</a>
+                 </a-menu-item>
+                 <a-menu-item>
+                   <a href="javascript:;">2nd menu item</a>
+                 </a-menu-item>
+                 <a-menu-item>
+                   <a href="javascript:;">3rd menu item</a>
+                 </a-menu-item>
+               </a-menu>
+             </a-dropdown>
+           </div>
+           <div class="mr-20 font-20"><a-icon type="logout" /></div>
+         </div>
+        </div>
       </a-layout-header>
       <a-layout-content
         :style="{ margin: '5px', padding: '5px', background: '#fff', minHeight: '600px' }"
