@@ -25,7 +25,9 @@
           </div>
           <a-button icon="search" @click="fetchData">筛选</a-button>
         </div>
-        <a-button icon="plus" type="primary">新增</a-button>
+        <router-link to="/userInfo/add/0">
+          <a-button icon="plus" type="primary">新增</a-button>
+        </router-link>
       </div>
     </template>
     <template slot="content">

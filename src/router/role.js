@@ -9,6 +9,6 @@ export default {
   children: [
     { path: 'user', component: load('role/user'), meta: { title: '用户管理' } },
     { path: 'authority', component: load('role/user'), meta: { title: '权限管理' } },
-    { path: 'userInfo', component: load('user-info'), meta: { title: '用户信息', requireAuth: true } },
+    { path: 'userInfo/:mode/:id', component: load('user-info'), meta: { title: '用户信息', requireAuth: true } },
   ]
 }

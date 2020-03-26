@@ -27,8 +27,12 @@ var vm = new Vue({
 })
 
 let token = cookie.get('token')
-store.commit('setToken', token)
 let staffId = cookie.get('staffId')
+if (!token || !staffId) {
+  router.push('login')
+} else {
+  store.commit('setToken', token)
+}
 api.common.getStaffInfo(staffId).then(res => {
   if (res?.code === 200) {
     store.commit('setUserInfo', res.data)

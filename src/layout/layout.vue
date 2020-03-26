@@ -46,11 +46,11 @@
              <a-dropdown>
                <div class="mr-20">
                  <a-avatar style="margin: 5px 5px" :size="25" icon="user" />
-                 {{$store.state.userInfo.name}}
+                 {{$store.state.userInfo && $store.state.userInfo.name ? $store.state.userInfo.name : ''}}
                </div>
                <a-menu slot="overlay" style="margin-top: -15px">
                  <a-menu-item>
-                   <span @click="() => $router.push('userInfo')">
+                   <span @click="() => $router.push('/userInfo/my/0')">
                      <a-icon class="primary" type="idcard" />
                      <span class="ml-10">个人信息</span>
                    </span>
