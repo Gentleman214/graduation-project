@@ -32,9 +32,9 @@ if (!token || !staffId) {
   router.push('login')
 } else {
   store.commit('setToken', token)
+  api.common.getStaffInfo(staffId).then(res => {
+    if (res?.code === 200) {
+      store.commit('setUserInfo', res.data)
+    }
+  })
 }
-api.common.getStaffInfo(staffId).then(res => {
-  if (res?.code === 200) {
-    store.commit('setUserInfo', res.data)
-  }
-})

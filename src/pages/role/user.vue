@@ -23,9 +23,13 @@
               </a-select-option>
             </a-select>
           </div>
+          <div class="flex mr-20 mb-5">
+            <span class="flex flex-center mr-5 bold nowrap">入职时间</span>
+            <a-range-picker style="max-width: 220px" allowClear @change="setDateRange" />
+          </div>
           <a-button icon="search" @click="fetchData">筛选</a-button>
         </div>
-        <router-link to="/userInfo/add/0">
+        <router-link to="/userInfo/add/0" v-if="$store.state.userInfo && $store.state.userInfo.authority === 0">
           <a-button icon="plus" type="primary">新增</a-button>
         </router-link>
       </div>
@@ -39,8 +43,8 @@
         :loading="loading"
         @change="tableChange"
       >
-        <template slot="action">
-          <a-button type="primary" size="small" ghost>编辑</a-button>
+        <template slot="action" slot-scope="text, row">
+          <a-button type="primary" size="small" @click="edit(row.staffId)" ghost>编辑</a-button>
           <a-button type="danger" size="small" ghost>注销</a-button>
         </template>
       </a-table>
@@ -66,14 +70,29 @@
       align: 'center'
     },
     {
+      title: '入职时间',
+      dataIndex: 'hiredate',
+      align: 'center'
+    },
+    {
       title: '联系方式',
       dataIndex: 'phone',
       align: 'center'
     },
     {
       title: '年龄',
-      dataIndex: 'age',
-      align: 'center'
+      dataIndex: 'birthday',
+      align: 'center',
+      customRender: (text) => {
+        let thisYear = (new Date()).getFullYear()
+        let birthYear = 0
+        if (text) {
+          birthYear = text.split('-')[0]
+        }
+        if (birthYear) {
+          return thisYear - birthYear
+        } else return ''
+      }
     },
     {
       title: '权限',
@@ -127,7 +146,8 @@
         loading: false,
         screening: {
           staffId: '',
-          name: ''
+          name: '',
+          dateRange: ['', '']
         }
       }
     },
@@ -147,6 +167,8 @@
           if (res?.code === 200) {
             this.list = res.data.records
             this.pagination.total = res.data.total
+          } else {
+            this.$message.error(res.userMsg)
           }
         })
           .finally(() => {
@@ -156,6 +178,12 @@
       tableChange (pagination) {
         this.pagination = pagination
         this.fetchData()
+      },
+      setDateRange (date, dateString) {
+        this.screening.dateRange = dateString
+      },
+      edit (id) {
+        this.$router.push(`/userInfo/edit/${id}`)
       }
     }
   }

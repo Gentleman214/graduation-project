@@ -90,7 +90,7 @@ html, body {
 .font-12 { font-size: 12px; }
 
 
-/****************flexbox**************/
+/****************flex-box**************/
 .flex {display:flex;}
 .inline-flex {display:inline-flex;}
 .flex-center{justify-content: center;align-items: center;}

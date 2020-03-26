@@ -7,6 +7,10 @@
       </div>
       <div class="basic-info">
         <div>
+          <span class="item">工号：</span>
+          <span>{{info.staff_id}}</span>
+        </div>
+        <div>
           <span class="item">用户名：</span>
           <a-input allowClear v-if="edit" style="max-width: 150px" v-model="info.name"></a-input>
           <span v-else>{{info.name}}</span>
@@ -147,6 +151,10 @@
       getUserInfo () {
         let id = ''
         if (this.$route.params.mode === 'add') {
+          this.edit = true
+          if (this.$store.state.userInfo.authority === 0) {
+            this.isManage = true
+          }
           return
         }
         if (this.$route.params.mode === 'my') {

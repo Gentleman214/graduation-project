@@ -8,7 +8,10 @@ export default new Vuex.Store({
   state: {
     token: null,
     userInfo: null,
-    flagOfModifyPassword: null,
+    notice: { // 消息通知
+      modifyPassword: true, // 修改密码
+      perfectInfo: true // 完善信息
+    },
     menu: []
   },
   getters: {},
@@ -19,11 +22,11 @@ export default new Vuex.Store({
     setUserInfo (state, userInfo) {
       state.userInfo = userInfo
     },
+    setNotice (state, notice) {
+      state.notice = notice
+    },
     setMenu (state, data) {
       state.menu = data
-    },
-    setFlagOfModifyPassword (state, data) {
-      state.flagOfModifyPassword = data
     }
   },
   actions: {

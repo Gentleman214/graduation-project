@@ -44,11 +44,12 @@
           if (res?.code === 200) {
             let userInfo = {
               staffId: res.data.staffId,
-              name: res.data.name
+              name: res.data.name,
+              modify: res.data.modify,
+              perfect: res.data.perfect
             }
             this.$store.commit('setToken', res.data.token)
             this.$store.commit('setUserInfo', userInfo)
-            this.$store.commit('setFlagOfModifyPassword', res.data.modify)
             let millisecond = new Date().getTime()
             let expiresTime = new Date(millisecond + 60 * 1000 * 60 * 1) // cookie一小时失效
             this.$cookie.set('token', res.data.token, { expires: expiresTime })

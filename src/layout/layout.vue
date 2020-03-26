@@ -46,7 +46,7 @@
              <a-dropdown>
                <div class="mr-20">
                  <a-avatar style="margin: 5px 5px" :size="25" icon="user" />
-                 {{$store.state.userInfo && $store.state.userInfo.name ? $store.state.userInfo.name : ''}}
+                 {{$store.state.userInfo && $store.state.userInfo.name ? $store.state.userInfo.name : '' }}
                </div>
                <a-menu slot="overlay" style="margin-top: -15px">
                  <a-menu-item>
@@ -72,7 +72,7 @@
                </a-menu>
              </a-dropdown>
            </div>
-           <div class="mr-20 font-20"><a-icon type="logout" /></div>
+           <div class="mr-20 font-20 pointer" @click="loginOut"><a-icon type="logout" /></div>
          </div>
         </div>
       </a-layout-header>
@@ -173,6 +173,13 @@
       return {
         collapsed: false,
         menu
+      }
+    },
+    methods: {
+      loginOut () {
+        this.$cookie.set('token', '', { expires: 0 })
+        this.$cookie.set('staffId', '', { expires: 0 })
+        this.$router.push('/login')
       }
     }
   }
