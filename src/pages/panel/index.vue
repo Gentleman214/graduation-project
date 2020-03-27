@@ -1,7 +1,7 @@
 <template>
   <page :showTitle="false" :showHeader="false">
     <template slot="content">
-      内容区
+      内容区111
       {{$store.state.userInfo}}
       <modify-password ref="drawer"></modify-password>
     </template>
