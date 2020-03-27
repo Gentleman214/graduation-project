@@ -150,16 +150,17 @@
       isMobile,
       getUserInfo () {
         let id = ''
+        if (this.$store.state.userInfo.authority === 0) {
+          this.isManage = true
+        }
         if (this.$route.params.mode === 'add') {
           this.edit = true
-          if (this.$store.state.userInfo.authority === 0) {
-            this.isManage = true
-          }
           return
         }
         if (this.$route.params.mode === 'my') {
           id = this.userInfo.staffId
         } else  {
+          this.edit = true
           id = this.$route.params.id
         }
         this.$api.role.getUserInfoByStaffId(id).then(res => {
@@ -168,7 +169,6 @@
             this.info.hiredate = this.info.hiredate ? moment(this.info.hiredate, 'YYYY-MM-DD') : null
             this.info.birthday = this.info.birthday ? moment(this.info.birthday, 'YYYY-MM-DD') : null
             this.info.role = this.info.role?.length ? this.info.role.split('-') : []
-            this.isManage = (res.data.authority === 0)
           } else {
             this.$message.error(res.userMsg)
           }

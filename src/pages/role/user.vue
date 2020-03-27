@@ -44,8 +44,11 @@
         @change="tableChange"
       >
         <template slot="action" slot-scope="text, row">
-          <a-button type="primary" size="small" @click="edit(row.staffId)" ghost>编辑</a-button>
-          <a-button type="danger" size="small" ghost>注销</a-button>
+          <div v-if="$store.state.userInfo && $store.state.userInfo.authority === 0">
+            <a-button type="primary" size="small" @click="edit(row.staffId)" ghost>编辑</a-button>
+            <a-button type="danger" size="small" ghost>注销</a-button>
+          </div>
+          <span v-else>--</span>
         </template>
       </a-table>
     </template>

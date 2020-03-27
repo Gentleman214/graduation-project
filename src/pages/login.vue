@@ -45,6 +45,7 @@
             let userInfo = {
               staffId: res.data.staffId,
               name: res.data.name,
+              authority: res.data.authority,
               modify: res.data.modify,
               perfect: res.data.perfect
             }
