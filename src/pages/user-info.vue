@@ -63,10 +63,10 @@
         <div>
           <span class="item">系统角色：</span>
           <a-radio-group v-model="info.authority" v-if="edit" :disabled="!isManage">
-            <a-radio :value="0">管理员</a-radio>
-            <a-radio :value="1">默认角色</a-radio>
+            <a-radio :value="1">管理员</a-radio>
+            <a-radio :value="2">默认角色</a-radio>
           </a-radio-group>
-          <span v-else>{{info.authority === 0 ? '管理员' : '默认角色'}}</span>
+          <span v-else>{{info.authority === 1 ? '管理员' : '默认角色'}}</span>
         </div>
         <div class="mt-20">
           <a-button class="mr-20" v-show="!edit" type="primary" ghost @click="edit = true">编辑</a-button>
@@ -129,7 +129,7 @@
           head_pic: '',
           hiredate: null,
           birthday: null,
-          authority: 1,
+          authority: 2,
           role: []
         }
       }
@@ -150,7 +150,7 @@
       isMobile,
       getUserInfo () {
         let id = ''
-        if (this.$store.state.userInfo.authority === 0) {
+        if (this.$store.state.userInfo.authority === 1) {
           this.isManage = true
         }
         if (this.$route.params.mode === 'add') {
@@ -221,7 +221,7 @@
             this.info.hiredate = this.info.hiredate ? moment(this.info.hiredate, 'YYYY-MM-DD') : null
             this.info.birthday = this.info.birthday ? moment(this.info.birthday, 'YYYY-MM-DD') : null
             this.info.role = this.info.role?.length ? this.info.role.split('-') : []
-            this.isManage = (res.data.authority === 0)
+            this.isManage = (res.data.authority === 1)
             this.edit = false
           } else {
             this.$message.error('保存失败')

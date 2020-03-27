@@ -15,5 +15,8 @@ export default {
   },
   addOrUpdateUser (params) { // 新增员工或编辑员工信息
     return fetch('/api/user/addOrUpdate', params, 'post')
+  },
+  getRoleList () { // 获取角色列表
+    return fetch('/api/role/list')
   }
 }

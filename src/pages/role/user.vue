@@ -29,7 +29,7 @@
           </div>
           <a-button icon="search" @click="fetchData">筛选</a-button>
         </div>
-        <router-link to="/userInfo/add/0" v-if="$store.state.userInfo && $store.state.userInfo.authority === 0">
+        <router-link to="/userInfo/add/0" v-if="$store.state.userInfo && $store.state.userInfo.authority === 1">
           <a-button icon="plus" type="primary">新增</a-button>
         </router-link>
       </div>
@@ -44,9 +44,14 @@
         @change="tableChange"
       >
         <template slot="action" slot-scope="text, row">
-          <div v-if="$store.state.userInfo && $store.state.userInfo.authority === 0">
+          <div v-if="$store.state.userInfo && $store.state.userInfo.authority === 1">
             <a-button type="primary" size="small" @click="edit(row.staffId)" ghost>编辑</a-button>
-            <a-button type="danger" size="small" ghost>注销</a-button>
+            <a-popconfirm placement="right" okText="确定" cancelText="取消" @confirm="deleteUser(row.staffId)">
+              <template slot="title">
+                <span>确定要删除(注销)该用户吗？</span>
+              </template>
+              <a-button type="danger" size="small" ghost>注销</a-button>
+            </a-popconfirm>
           </div>
           <span v-else>--</span>
         </template>
@@ -129,11 +134,11 @@
         value: '全部'
       },
       {
-        key: 0,
+        key: 1,
         value: '管理员'
       },
       {
-        key: 1,
+        key: 2,
         value: '默认角色'
       }
     ]
@@ -187,6 +192,8 @@
       },
       edit (id) {
         this.$router.push(`/userInfo/edit/${id}`)
+      },
+      deleteUser (id) {
       }
     }
   }
