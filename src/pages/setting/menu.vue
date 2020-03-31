@@ -1,5 +1,8 @@
 <template>
   <page>
+    <template slot="extra">
+      <a-button icon="plus" type="primary" @click="showAddModal = true">新增</a-button>
+    </template>
     <template slot="content">
       <div class="flex">
         <a-tree :treeData="treeData" showIcon defaultExpandAll @select="onSelect">
@@ -36,101 +39,62 @@
           </div>
         </div>
       </div>
+      <a-modal v-model="showAddModal" :closable="false">
+        <div class="flex">
+          <span class="nowrap bold mt-5 mr-5 item">菜单类型：</span>
+          <a-select v-model="menuType" class="min-w-100" placeholder="请选择">
+            <a-select-option :value="1">一级菜单</a-select-option>
+            <a-select-option :value="2">二级菜单</a-select-option>
+          </a-select>
+        </div>
+        <div class="flex mt-20" v-if="menuType === 2">
+          <span class="nowrap bold mt-5 mr-5 item">一级菜单：</span>
+          <a-select v-model="parentId" class="min-w-100" placeholder="请选择">
+            <a-select-option v-for="item in firstLevelMenu" :value="item.key" :key="item.key">{{item.title}}</a-select-option>
+          </a-select>
+        </div>
+        <div class="flex mt-20" v-if="menuType">
+          <span class="nowrap bold mt-5 mr-5 item">菜单名：</span>
+          <a-input class="max-w-100"></a-input>
+        </div>
+      </a-modal>
     </template>
   </page>
 </template>
 
 <script>
-  const treeData = [
-    {
-      title: '控制面板',
-      key: '100',
-      sortIndex: 1,
-      slots: {
-        icon: 'area-chart',
-      },
-      children: []
-    },
-    {
-      title: '数据录入',
-      key: '200',
-      sortIndex: 2,
-      slots: {
-        icon: 'form',
-      },
-      children: []
-    },
-    {
-      title: '入库管理',
-      key: '300',
-      sortIndex: 3,
-      slots: {
-        icon: 'plus-circle',
-      },
-      children: []
-    },
-    {
-      title: '出库管理',
-      key: '400',
-      sortIndex: 4,
-      slots: {
-        icon: 'minus-circle',
-      },
-      children: []
-    },
-    {
-      title: '库内管理',
-      key: '500',
-      sortIndex: 5,
-      slots: {
-        icon: 'check-circle',
-      },
-      children: []
-    },
-    {
-      title: '统计报表',
-      key: '600',
-      sortIndex: 6,
-      slots: {
-        icon: 'file-excel',
-      },
-      children: []
-    },
-    {
-      title: '角色管理',
-      key: '700',
-      sortIndex: 7,
-      slots: {
-        icon: 'user',
-      },
-      children: [
-        { title: '用户管理', key: '701', sortIndex: 1 },
-        { title: '权限管理', key: '702', sortIndex: 2 }
-      ],
-    },
-    {
-      title: '系统设置',
-      key: '800',
-      sortIndex: 8,
-      slots: {
-        icon: 'setting',
-      },
-      children: [
-        { title: '菜单管理', key: '801', sortIndex: 1 }
-      ],
-    }
-  ]
   export default {
-    name: "index",
     data () {
       return {
-        treeData,
+        treeData: [],
+        firstLevelMenu: [],
+        initValueOfSortIndex: null, // 菜单的初始排序值
+        showAddModal: false,
+        menuType: undefined,
+        parentId: undefined,
         editObj: {}
       }
     },
+    mounted () {
+      this.getMenu()
+    },
     methods: {
+      getMenu () {
+        this.$api.role.getMenu().then(res => {
+          if (res?.code === 200) {
+            this.treeData = res.data
+            if (this.treeData.length) {
+              this.firstLevelMenu = this.treeData.filter(item => item.parentId === '0')
+              this.treeData.forEach(item => {
+                item.slots = { icon: item.icon }
+              })
+            }
+          }
+        })
+      },
       onSelect(selectedKeys, info) {
         this.editObj = info.node.dataRef
+        this.initValueOfSortIndex = this.editObj.sortIndex
       }
     }
   }

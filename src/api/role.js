@@ -18,5 +18,8 @@ export default {
   },
   getRoleList () { // 获取角色列表
     return fetch('/api/role/list')
+  },
+  getMenu () { // 获取菜单
+    return fetch('/api/role/menu')
   }
 }
