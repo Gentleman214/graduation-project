@@ -31,11 +31,11 @@
           </div>
           <div class="flex mt-10">
             <span class="item">排序值</span>
-            <a-input-number v-model="editObj.sortIndex"></a-input-number>
+            <a-input-number v-model="editObj.sortIndex" :min="1" :max="treeData.length + 1"></a-input-number>
             <span class="warning font-12 margin">排序值代表了在菜单中的位置，排序值为{{editObj.sortIndex}}表示位于第{{editObj.sortIndex}}个</span>
           </div>
           <div class="flex mt-20 ml-20">
-            <a-button type="danger" ghost>保存</a-button>
+            <a-button type="danger" ghost @click="save">保存</a-button>
           </div>
         </div>
       </div>
@@ -95,6 +95,15 @@
       onSelect(selectedKeys, info) {
         this.editObj = info.node.dataRef
         this.initValueOfSortIndex = this.editObj.sortIndex
+      },
+      save () {
+        let params = {
+          initVal: this.initValueOfSortIndex,
+          id: this.editObj.key,
+          name: this.editObj.title,
+          index: this.editObj.sortIndex
+        }
+        console.log(params)
       }
     }
   }
