@@ -13,6 +13,9 @@ export default {
   getUserInfoByStaffId (staffId) { // 根据员工号获取用户信息
     return fetch(`/api/user/${staffId}`)
   },
+  getUserByStaffIdOrName (keywords) { // 根据员工号或姓名查询员工
+    return fetch(`/api/user/keywords/${keywords}`)
+  },
   addOrUpdateUser (params) { // 新增员工或编辑员工信息
     return fetch('/api/user/addOrUpdate', params, 'post')
   },
@@ -21,5 +24,8 @@ export default {
   },
   getMenu () { // 获取菜单
     return fetch('/api/role/menu')
+  },
+  getMenuByAuthorityId (authorityId) { // 根据权限ID获取菜单
+    return fetch(`/api/role/menu/${authorityId}`)
   }
 }

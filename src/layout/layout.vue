@@ -6,27 +6,27 @@
         仓储系统管理后台
       </div>
       <a-menu
-        :defaultSelectedKeys="[menu[0].id]"
+        :defaultSelectedKeys="defaultSelectedKeys"
         mode="inline"
         theme="dark"
         :inlineCollapsed="collapsed"
         class="menu"
       >
         <template v-for="m in menu">
-          <a-menu-item v-if="!m.children.length" :key="m.id">
+          <a-menu-item v-if="!m.children || !m.children.length" :key="m.key">
             <router-link :to="'/' + m.link">
               <a-icon v-if="m.icon" :type="m.icon" />
-              <span>{{m.name}}</span>
+              <span>{{m.title}}</span>
             </router-link>
           </a-menu-item>
-          <a-sub-menu v-else :key="m.id">
+          <a-sub-menu v-else :key="m.key">
             <span slot="title">
               <a-icon v-if="m.icon" :type="m.icon" />
-              <span>{{m.name}}</span>
+              <span>{{m.title}}</span>
             </span>
-            <a-menu-item v-for="subm in m.children" :key="subm.id">
+            <a-menu-item v-for="subm in m.children" :key="subm.key">
               <router-link :to="'/' + subm.link">
-                {{subm.name}}
+                {{subm.title}}
               </router-link>
             </a-menu-item>
           </a-sub-menu>
@@ -91,79 +91,7 @@
   import page from './page.vue'
   import modifyPassword from '../components/modify-password.vue'
   Vue.component('page', page)
-  const menu = [
-    {
-      id: '100',
-      name: '控制面板',
-      icon: 'area-chart',
-      link: '',
-      children: []
-    },
-    {
-      id: '200',
-      name: '数据录入',
-      icon: 'form',
-      link: 'data',
-      children: []
-    },
-    {
-      id: '300',
-      name: '入库管理',
-      icon: 'plus-circle',
-      link: 'enter',
-      children: []
-    },
-    {
-      id: '400',
-      name: '出库管理',
-      icon: 'minus-circle',
-      link: 'getOut',
-      children: []
-    },
-    {
-      id: '500',
-      name: '库内管理',
-      icon: 'check-circle',
-      link: 'depository',
-      children: []
-    },
-    {
-      id: '600',
-      name: '统计报表',
-      icon: 'file-excel',
-      link: 'statistics',
-      children: []
-    },
-    {
-      id: '700',
-      name: '角色管理',
-      icon: 'user',
-      children: [
-        {
-          id: '701',
-          name: '用户管理',
-          link: 'user'
-        },
-        {
-          id: '702',
-          name: '权限管理',
-          link: 'authority'
-        }
-      ]
-    },
-    {
-      id: '800',
-      name: '系统设置',
-      icon: 'setting',
-      children: [
-        {
-          id: '801',
-          name: '菜单管理',
-          link: 'menu'
-        }
-      ]
-    }
-  ]
+  import { mapState } from 'vuex'
   export default {
     name: "layout",
     components: {
@@ -172,10 +100,30 @@
     data() {
       return {
         collapsed: false,
-        menu
+        menu: [],
+        defaultSelectedKeys: []
       }
     },
+    mounted () {
+      this.getMenu()
+    },
+    computed: {
+      ...mapState({
+        userInfo: state => state.userInfo
+      })
+    },
     methods: {
+      getMenu () {
+        let authorityId = this.userInfo.authority
+        this.$api.role.getMenuByAuthorityId(authorityId).then(res => {
+          if (res?.code === 200) {
+            this.menu = res.data
+            this.defaultSelectedKeys.push(res.data[0].key)
+          } else {
+            this.$message.error(res.userMsg)
+          }
+        })
+      },
       loginOut () {
         this.$cookie.set('token', '', { expires: 0 })
         this.$cookie.set('staffId', '', { expires: 0 })

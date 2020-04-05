@@ -48,7 +48,7 @@
           </a-select>
         </div>
         <div class="flex mt-20" v-if="menuType === 2">
-          <span class="nowrap bold mt-5 mr-5 item">一级菜单：</span>
+          <span class="nowrap bold mt-5 mr-5 item">上级菜单：</span>
           <a-select v-model="parentId" class="min-w-100" placeholder="请选择">
             <a-select-option v-for="item in firstLevelMenu" :value="item.key" :key="item.key">{{item.title}}</a-select-option>
           </a-select>
@@ -103,7 +103,9 @@
           name: this.editObj.title,
           index: this.editObj.sortIndex
         }
-        console.log(params)
+        if (params.initVal === params.index) {
+          delete params.initVal
+        }
       }
     }
   }

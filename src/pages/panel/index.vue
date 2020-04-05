@@ -25,7 +25,7 @@
     },
     methods: {
       openNotification() {
-        if (this.userInfo.modify && this.notice && this.notice.modifyPassword) {
+        if (this.userInfo && this.userInfo.modify && this.notice && this.notice.modifyPassword) {
           const key = `open${Date.now()}`
           this.$notification['warning']({
             message: '消息通知',
@@ -53,7 +53,7 @@
             onClose: close
           })
         }
-        if (this.userInfo.perfect && this.notice && this.notice.perfectInfo) {
+        if (this.userInfo && this.userInfo.perfect && this.notice && this.notice.perfectInfo) {
           const key = `open${Date.now()}---`
           this.$notification['warning']({
             message: '消息通知',
