@@ -17,12 +17,10 @@
         <a-input v-model="form.contact_phone" allowClear />
       </a-form-item>
     </a-form>
-    <div class="flex full-width flex-justify-center">
-      <div style="margin-right: 200px">
-        <a-button class="mr-20" @click="save" type="primary">保存</a-button>
-        <a-button class="mr-20" @click="cancel" type="danger">取消</a-button>
-        <a-button @click="$router.back()">返回</a-button>
-      </div>
+    <div class="ml-100">
+      <a-button class="mr-20" @click="save" type="primary">保存</a-button>
+      <a-button class="mr-20" @click="cancel" type="danger">取消</a-button>
+      <a-button @click="$router.back()">返回</a-button>
     </div>
   </div>
 </template>
@@ -32,12 +30,12 @@
     data() {
       return {
         labelCol: {
-          xs: { span: 24 },
-          sm: { span: 5 },
+          xs: { span: 2 },
+          sm: { span: 2 },
         },
         wrapperCol: {
           xs: { span: 24 },
-          sm: { span: 12 },
+          sm: { span: 8 },
         },
         form: {
           name: '',
@@ -103,3 +101,12 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+  .ml-100 {
+    margin-left: 100px;
+  }
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+</style>

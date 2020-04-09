@@ -131,3 +131,8 @@ html, body {
 .flex-child-align-center {align-self:center;}
 .flex-child-align-baseline {align-self:baseline;}
 .flex-child-align-stretch {align-self:stretch;}
+
+/****************ant-design-vue**************/
+.cascader .ant-cascader-menu {
+  height: 400px;
+}

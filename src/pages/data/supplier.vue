@@ -1,7 +1,5 @@
 <template>
-  <page>
-    <template slot="header">
-    </template>
+  <page title="供应商列表">
     <template slot="extra">
       <router-link to="supplier/add/0">
         <a-button type="primary" icon="plus">新增</a-button>

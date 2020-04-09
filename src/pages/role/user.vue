@@ -1,40 +1,38 @@
 <template>
-  <page :showTitle="false">
-    <template slot="header">
-      <div class="flex flex-justify-between">
-        <div class="flex flex-wrap">
-          <div class="flex mr-20 mb-5">
-            <span class="flex flex-center mr-5 bold nowrap">工号</span>
-            <a-input class="max-w-100" v-model="screening.staffId" @keydown.enter="fetchData" allowClear></a-input>
-          </div>
-          <div class="flex mr-20 mb-5">
-            <span class="flex flex-center mr-5 bold nowrap">姓名</span>
-            <a-input class="max-w-100" v-model="screening.name" @keydown.enter="fetchData" allowClear></a-input>
-          </div>
-          <div class="flex mr-20 mb-5">
-            <span class="flex flex-center mr-5 bold nowrap">角色</span>
-            <a-select class="min-w-100" v-model="authority.selected" allowClear>
-              <a-select-option
-                v-for="item in authority.list"
-                :key="item.key"
-                :value="item.key"
-              >
-                {{item.value}}
-              </a-select-option>
-            </a-select>
-          </div>
-          <div class="flex mr-20 mb-5">
-            <span class="flex flex-center mr-5 bold nowrap">入职时间</span>
-            <a-range-picker style="max-width: 220px" allowClear @change="setDateRange" />
-          </div>
-          <a-button icon="search" @click="fetchData">筛选</a-button>
-        </div>
-        <router-link to="/userInfo/add/0" v-if="$store.state.userInfo && $store.state.userInfo.authority === 1">
-          <a-button icon="plus" type="primary">新增</a-button>
-        </router-link>
-      </div>
+  <page title="用户列表">
+    <template slot="extra">
+      <router-link to="/userInfo/add/0" v-if="$store.state.userInfo && $store.state.userInfo.authority === 1">
+        <a-button icon="plus" type="primary">新增用户</a-button>
+      </router-link>
     </template>
     <template slot="content">
+      <div class="flex flex-wrap">
+        <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">工号</span>
+          <a-input class="max-w-100" v-model="screening.staffId" @keydown.enter="fetchData" allowClear></a-input>
+        </div>
+        <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">姓名</span>
+          <a-input class="max-w-100" v-model="screening.name" @keydown.enter="fetchData" allowClear></a-input>
+        </div>
+        <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">角色</span>
+          <a-select class="min-w-100" v-model="authority.selected" allowClear>
+            <a-select-option
+              v-for="item in authority.list"
+              :key="item.key"
+              :value="item.key"
+            >
+              {{item.value}}
+            </a-select-option>
+          </a-select>
+        </div>
+        <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">入职时间</span>
+          <a-range-picker style="max-width: 220px" allowClear @change="setDateRange" />
+        </div>
+        <a-button icon="search" @click="fetchData">筛选</a-button>
+      </div>
       <a-table
         :dataSource="list"
         :columns="columns"
