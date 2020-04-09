@@ -1,6 +1,7 @@
 import fetch from './fetch'
 
 export default {
+  // 供应商
   getSupplierList (params) {
     return fetch('/api/supplier/list', params, 'post')
   },
@@ -12,5 +13,10 @@ export default {
   },
   deleteSupplierById (id) {
     return fetch('/api/supplier/delete', { id }, 'post')
+  },
+
+  // 商品
+  getProductCategoryList () {
+    return fetch('/api/pruduct/category')
   }
 }
