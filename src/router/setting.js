@@ -7,6 +7,6 @@ export default {
   path: '/',
   component: layout,
   children: [
-    { path: 'menu', component: load('setting/menu'), meta: { title: '菜单管理' } }
+    { path: 'menu', component: load('setting/menu'), meta: { title: '菜单管理', requireAuth: true } }
   ]
 }

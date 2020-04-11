@@ -7,6 +7,6 @@ export default {
   path: '/',
   component: layout,
   children: [
-    { path: 'getOut', component: load('get-out/index'), meta: { title: '出库管理' } }
+    { path: 'getOut', component: load('get-out/index'), meta: { title: '出库管理', requireAuth: true } }
   ]
 }

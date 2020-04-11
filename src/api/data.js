@@ -5,6 +5,9 @@ export default {
   getSupplierList (params) {
     return fetch('/api/supplier/list', params, 'post')
   },
+  getSupplierListForScreening () { // 获取供应商列表（仅名字和id）
+    return fetch('/api/supplier/simpleList', {}, 'post')
+  },
   getSupplierInfoById (id) {
     return fetch(`/api/supplier/${id}`)
   },
@@ -16,7 +19,10 @@ export default {
   },
 
   // 商品
-  getProductCategoryList () {
+  getProdutList (params) { // 分页查询商品列表
+    return fetch('/api/product/list', params, 'post')
+  },
+  getProductCategoryList () { // 获取商品分类级联选择列表
     return fetch('/api/pruduct/category')
   }
 }

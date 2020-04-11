@@ -104,7 +104,7 @@
         defaultSelectedKeys: []
       }
     },
-    mounted () {
+    created () {
       this.getMenu()
     },
     computed: {

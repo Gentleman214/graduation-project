@@ -7,6 +7,6 @@ export default {
   path: '/',
   component: layout,
   children: [
-    { path: 'enter', component: load('enter/index'), meta: { title: '入库管理' } }
+    { path: 'enter', component: load('enter/index'), meta: { title: '入库管理', requireAuth: true } }
   ]
 }

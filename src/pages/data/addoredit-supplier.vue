@@ -1,28 +1,32 @@
 <template>
-  <div>
-    <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-      <a-form-item label="供应商名称">
-        <a-input v-model="form.name" allowClear />
-      </a-form-item>
-      <a-form-item label="供应商电话">
-        <a-input v-model="form.tel" allowClear />
-      </a-form-item>
-      <a-form-item label="供应商地址">
-        <a-input v-model="form.address" allowClear />
-      </a-form-item>
-      <a-form-item label="联系人">
-        <a-input v-model="form.contact_person" allowClear />
-      </a-form-item>
-      <a-form-item label="联系方式">
-        <a-input v-model="form.contact_phone" allowClear />
-      </a-form-item>
-    </a-form>
-    <div class="ml-100">
-      <a-button class="mr-20" @click="save" type="primary">保存</a-button>
-      <a-button class="mr-20" @click="cancel" type="danger">取消</a-button>
-      <a-button @click="$router.back()">返回</a-button>
-    </div>
-  </div>
+  <page>
+    <template slot="content">
+      <div>
+        <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
+          <a-form-item label="供应商名称">
+            <a-input v-model="form.name" allowClear />
+          </a-form-item>
+          <a-form-item label="供应商电话">
+            <a-input v-model="form.tel" allowClear />
+          </a-form-item>
+          <a-form-item label="供应商地址">
+            <a-input v-model="form.address" allowClear />
+          </a-form-item>
+          <a-form-item label="联系人">
+            <a-input v-model="form.contact_person" allowClear />
+          </a-form-item>
+          <a-form-item label="联系方式">
+            <a-input v-model="form.contact_phone" allowClear />
+          </a-form-item>
+        </a-form>
+        <div class="ml-100">
+          <a-button class="mr-20" @click="save" type="primary">保存</a-button>
+          <a-button class="mr-20" @click="cancel" type="danger">取消</a-button>
+          <a-button @click="$router.back()">返回</a-button>
+        </div>
+      </div>
+    </template>
+  </page>
 </template>
 <script>
   import { isMobile } from '../../util/check'
