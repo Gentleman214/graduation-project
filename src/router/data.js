@@ -6,6 +6,7 @@ function load (component) {
 export default {
   path: '/',
   component: layout,
+  meta: { requireAuth: true },
   children: [
     { path: 'storehouse', component: load('data/storehouse'), meta: { title: '仓库信息', requireAuth: true } },
     { path: 'supplier', component: load('data/supplier'), meta: { title: '供应商信息', requireAuth: true } },

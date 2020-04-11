@@ -6,6 +6,7 @@ function load (component) {
 export default {
   path: '/',
   component: layout,
+  meta: { requireAuth: true },
   children: [
     { path: 'depository', component: load('depository/index'), meta: { title: '库内管理', requireAuth: true } }
   ]

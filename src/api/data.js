@@ -24,5 +24,11 @@ export default {
   },
   getProductCategoryList () { // 获取商品分类级联选择列表
     return fetch('/api/pruduct/category')
+  },
+  getProductInfoById (id) { // 获取商品信息，by id
+    return fetch(`/api/product/${id}`)
+  },
+  addOrUpdateProduct (params) { // 新增或编辑商品信息
+    return fetch('/api/product/addOrUpdate', params, 'post')
   }
 }

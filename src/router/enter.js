@@ -6,6 +6,7 @@ function load (component) {
 export default {
   path: '/',
   component: layout,
+  meta: { requireAuth: true },
   children: [
     { path: 'enter', component: load('enter/index'), meta: { title: '入库管理', requireAuth: true } }
   ]

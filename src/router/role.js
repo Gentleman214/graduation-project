@@ -6,6 +6,7 @@ function load (component) {
 export default {
   path: '/',
   component: layout,
+  meta: { requireAuth: true },
   children: [
     { path: 'user', component: load('role/user'), meta: { title: '用户管理' } },
     { path: 'authority', component: load('role/authority'), meta: { title: '权限管理', requireAuth: true } },

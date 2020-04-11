@@ -8,8 +8,12 @@
     <template slot="content">
       <div class="flex flex-wrap">
         <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">商品编号</span>
+          <a-input class="max-w-150" v-model="screening.id" @keydown.enter="fetchData" allowClear></a-input>
+        </div>
+        <div class="flex mr-20 mb-5">
           <span class="flex flex-center mr-5 bold nowrap">商品名</span>
-          <a-input v-model="screening.name" @keydown.enter="fetchData" allowClear></a-input>
+          <a-input class="max-w-150" v-model="screening.name" @keydown.enter="fetchData" allowClear></a-input>
         </div>
         <div class="flex mr-20 mb-5">
           <span class="flex flex-center mr-5 bold nowrap">商品分类</span>
@@ -53,6 +57,14 @@
         :loading="loading"
         @change="tableChange"
       >
+        <template slot="action" slot-scope="text, row">
+          <div v-if="$store.state.userInfo && $store.state.userInfo.authority === 1">
+            <router-link :to="`product/edit/${row.id}`">
+              <a-button type="primary" size="small" ghost>编辑</a-button>
+            </router-link>
+          </div>
+          <span v-else>--</span>
+        </template>
       </a-table>
     </template>
   </page>
@@ -127,6 +139,7 @@
           list: []
         },
         screening: {
+          id: '',
           name: '', // 商品名
           category: '' // 商品分类
         },
@@ -190,4 +203,7 @@
 </script>
 
 <style scoped lang="scss">
+  .max-w-150 {
+    max-width: 150px;
+  }
 </style>

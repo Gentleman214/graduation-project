@@ -6,6 +6,17 @@
       </router-link>
     </template>
     <template slot="content">
+      <div class="flex flex-wrap">
+        <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">供应商名称</span>
+          <a-input class="max-w-150" v-model="screening.name" @keydown.enter="fetchData" allowClear></a-input>
+        </div>
+        <div class="flex mr-20 mb-5">
+          <span class="flex flex-center mr-5 bold nowrap">联系人</span>
+          <a-input class="max-w-150" v-model="screening.contact_person" @keydown.enter="fetchData" allowClear></a-input>
+        </div>
+        <a-button icon="search" @click="fetchData">筛选</a-button>
+      </div>
       <a-table
         :dataSource="list"
         :columns="columns"
@@ -82,7 +93,8 @@
         pagination,
         loading: false,
         screening: {
-          name: ''
+          name: '',
+          contact_person: ''
         },
         list: []
       }
@@ -97,11 +109,14 @@
           size: this.pagination.pageSize,
           ...this.screening
         }
+        this.loading = true
         this.$api.data.getSupplierList(params).then(res => {
           if (res?.code === 200) {
             this.list = res.data.records
             this.pagination.total = res.data.total
           }
+        }).finally(() => {
+          this.loading = false
         })
       },
       deleteSupplier (id) {

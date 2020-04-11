@@ -15,9 +15,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth === undefined)) {
     next()
   } else {
-    if (store.state.token1) {
-      next()
-    } else if (cookie.get('token')) {
+    if (cookie.get('token')) {
       let token = cookie.get('token')
       api.common.checkAuth(token).then(res => {
         if (res?.code === 200) {

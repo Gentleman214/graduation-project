@@ -9,6 +9,7 @@
           <a-form-item label="商品分类">
             <a-cascader
               expandTrigger="hover"
+              v-model="form.category"
               :fieldNames="{ label: 'name', value: 'name', children: 'children' }"
               :options="productCategoryList"
               :popupClassName="'cascader'"
@@ -21,7 +22,7 @@
           </a-form-item>
           <a-form-item label="所属供应商">
             <div class="flex">
-              <a-select class="min-w-200" v-model="form.supplier" @change="setSupplier">
+              <a-select class="min-w-200" v-model="form.supplier_id" @change="setSupplier">
                 <a-select-option v-for="item in supplierList" :key="item.id" :value="item.id">{{item.name}}</a-select-option>
               </a-select>
               <router-link to="/supplier/add/0">
@@ -56,10 +57,10 @@
             <a-input-number class="min-w-100" v-model="form.price" allowClear />
           </a-form-item>
           <a-form-item label="生产日期">
-            <a-date-picker showTime allowClear @change="setManufactureDate" />
+            <a-date-picker v-model="form.manufacture_date" showTime allowClear @change="calculQualityGuaranteePeriod" />
           </a-form-item>
           <a-form-item label="过期日期">
-            <a-date-picker showTime allowClear @change="setExpirationDate" />
+            <a-date-picker v-model="form.expiration_date" showTime allowClear @change="calculQualityGuaranteePeriod" />
           </a-form-item>
           <a-form-item label="保质期" v-show="form.quality_guarantee_period">
             <span>{{form.quality_guarantee_period}}</span>
@@ -77,6 +78,8 @@
   </page>
 </template>
 <script>
+  import moment from "moment"
+  import { dateFormat } from '../../util/dateFormat'
   export default {
     data() {
       return {
@@ -93,7 +96,7 @@
         form: {
           name: null,
           category_id: null,
-          category_name: null,
+          category: [],
           supplier_id: undefined,
           supplier_name: undefined,
           stock_num: null,
@@ -103,25 +106,29 @@
           unit: null,
           price: null,
           remark: null,
-          manufacture_date: null,
-          expiration_date: null,
+          manufacture_date: null, // 生产日期
+          expiration_date: null, // 过期日期
           quality_guarantee_period: null
         }
       }
     },
-    mounted () {
+    created () {
       this.fetchData()
       this.getProductCategoryList()
       this.getSupplierList()
     },
     methods: {
+      dateFormat,
       fetchData () {
         if (this.$route.params.mode === 'add') {
           return
         }
         let id = this.$route.params.id
-        this.$api.data.getSupplierInfoById(id).then(res => {
-          this.form = res.data
+        this.$api.data.getProductInfoById(id).then(res => {
+          this.form = { ...res.data }
+          this.form.category = this.form.category.split('/')
+          this.form.manufacture_date = this.form.manufacture_date ? moment(this.form.manufacture_date, 'YYYY-MM-DD hh:mm:ss') : null
+          this.form.expiration_date = this.form.expiration_date ? moment(this.form.expiration_date, 'YYYY-MM-DD hh:mm:ss') : null
         })
       },
       getProductCategoryList () {
@@ -141,27 +148,19 @@
       changeProductCategory (value, selectedOptions) {
         if (value.length) {
           this.form.category_id = selectedOptions[selectedOptions.length - 1].id
-          this.form.category_name = value.join('/')
         } else {
           this.screening.category_id = null
-          this.screening.category_name = null
         }
       },
       setSupplier (value) {
         this.form.supplier_name = this.supplierList.find(item => item.id === value).name
       },
-      setManufactureDate (date, dateString) {
-        this.form.manufacture_date = dateString
-      },
-      setExpirationDate (date, dateString) {
-        this.form.expiration_date = dateString
+      calculQualityGuaranteePeriod () { // 计算商品保质期
         if (this.form.manufacture_date && this.form.expiration_date) {
           let str = ''
-          let expiration_date = this.form.expiration_date.split(' ')[0]
-          let manufacture_date = this.form.manufacture_date.split(' ')[0]
-          let year = expiration_date.split('-')[0] - manufacture_date.split('-')[0]
-          let month = expiration_date.split('-')[1] - manufacture_date.split('-')[1]
-          let day = expiration_date.split('-')[2] - manufacture_date.split('-')[2]
+          let year = this.form.expiration_date._d.getFullYear() - this.form.manufacture_date._d.getFullYear()
+          let month = this.form.expiration_date._d.getMonth() - this.form.manufacture_date._d.getMonth()
+          let day = this.form.expiration_date._d.getDate() - this.form.manufacture_date._d.getDate()
           if (year < 0 && month <0 && day < 0) {
             this.$message.warning('过期日期小于生产日期，则说明商品已过期，请重新核对！')
             return
@@ -170,7 +169,7 @@
             str += `${year}年`
           }
           if ( month > 0) {
-            str += `${month}月`
+            str += `${month}个月`
           }
           if (year <= 0 && month <= 0 && day > 0) {
             str += `${day}天`
@@ -183,22 +182,33 @@
           this.$message.warning('请输入商品名称')
           return
         }
-        if (!this.form.address) {
-          this.$message.warning('请输入供应商地址')
+        if (!this.form.category.length) {
+          this.$message.warning('请选择商品分类')
           return
         }
-        if (!this.form.contact_person) {
-          this.$message.warning('请输入联系人')
+        if (!this.form.supplier_id) {
+          this.$message.warning('请选择所属供应商')
           return
         }
-        if (!this.form.contact_phone) {
-          this.$message.warning('请输入联系电话')
+        if (!this.form.stock_num) {
+          this.$message.warning('请填写库存数量')
+          return
+        }
+        if (!this.form.manufacture_date._d) {
+          this.$message.warning('请选择生产日期')
+          return
+        }
+        if (!this.form.expiration_date._d) {
+          this.$message.warning('请选择过期日期')
           return
         }
         let params = {
           ...this.form
         }
-        this.$api.data.addOrUpdateSupplier(params).then(res => {
+        params.category = params.category.join('/')
+        params.manufacture_date = dateFormat(params.manufacture_date, 'YYYY-MM-DD hh:mm:ss')
+        params.expiration_date = dateFormat(params.expiration_date, 'YYYY-MM-DD hh:mm:ss')
+        this.$api.data.addOrUpdateProduct(params).then(res => {
           if (res?.code === 200) {
             this.$message.success(res.userMsg)
             this.$router.back()

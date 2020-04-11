@@ -6,6 +6,7 @@ function load (component) {
 export default {
   path: '/',
   component: layout,
+  meta: { requireAuth: true },
   children: [
     { path: 'menu', component: load('setting/menu'), meta: { title: '菜单管理', requireAuth: true } }
   ]

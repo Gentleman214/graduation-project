@@ -83,7 +83,7 @@
   import { mapState } from 'vuex'
   import { dateFormat } from '../util/dateFormat'
   import { isMobile } from '../util/check'
-  import moment from "moment";
+  import moment from "moment"
   const role = [
     {
       value: '系统',
