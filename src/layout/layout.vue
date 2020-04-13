@@ -90,8 +90,8 @@
   import Vue from 'vue'
   import page from './page.vue'
   import modifyPassword from '../components/modify-password.vue'
-  Vue.component('page', page)
   import { mapState } from 'vuex'
+  Vue.component('page', page)
   export default {
     name: "layout",
     components: {

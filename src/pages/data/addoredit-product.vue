@@ -42,6 +42,7 @@
           <a-form-item label="商品包装">
             <a-radio-group v-model="form.pack">
               <a-radio value="袋装">袋装</a-radio>
+              <a-radio value="包装">包装</a-radio>
               <a-radio value="瓶装">瓶装</a-radio>
               <a-radio value="罐装">罐装</a-radio>
               <a-radio value="桶装">桶装</a-radio>

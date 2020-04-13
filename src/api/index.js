@@ -1,9 +1,13 @@
 import fetch from './fetch'
 import role from './role'
 import data from './data'
+import enter from './enter'
+import getOut from './getOut'
 export default {
   role,
   data,
+  enter,
+  getOut,
   common: {
     login (params) { // 登录
       return fetch('/api/user/login',params, 'post')
