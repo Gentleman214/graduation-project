@@ -8,6 +8,6 @@ export default {
   component: layout,
   meta: { requireAuth: true },
   children: [
-    { path: 'depository', component: load('depository/index'), meta: { title: '库内管理', requireAuth: true } }
+    { path: 'stockCheck', component: load('depository/stock-check'), meta: { title: '库存盘点', requireAuth: true } }
   ]
 }

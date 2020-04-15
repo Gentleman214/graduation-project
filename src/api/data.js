@@ -1,6 +1,13 @@
 import fetch from './fetch'
 
 export default {
+  // 仓库
+  getAllStorehouse () {
+    return fetch('/api/storehouse/list', {}, 'post')
+  },
+  addOrUpdateStorehouse (params) {
+    return fetch('/api/storehouse/addoredit', params, 'post')
+  },
   // 供应商
   getSupplierList (params) {
     return fetch('/api/supplier/list', params, 'post')

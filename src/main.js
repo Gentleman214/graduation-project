@@ -8,6 +8,7 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import cookie from 'js-cookie'
 import api from './api'
+import echarts from 'echarts'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -15,6 +16,7 @@ Vue.use(Antd)
 Vue.prototype.$store = store
 Vue.prototype.$cookie = cookie
 Vue.prototype.$api = api
+Vue.prototype.$echarts = echarts
 Vue.prototype.$message.config({
   top: `50px`,
   duration: 1,

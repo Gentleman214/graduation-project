@@ -199,10 +199,6 @@
           this.$message.warning('请选择生产日期')
           return
         }
-        if (!this.form.expiration_date._d) {
-          this.$message.warning('请选择过期日期')
-          return
-        }
         let params = {
           ...this.form
         }
