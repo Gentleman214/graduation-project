@@ -1,9 +1,8 @@
 <template>
   <page :showTitle="false" :showHeader="false">
-    <template slot="content">
-      内容区111
-      {{$store.state.userInfo}}
+    <template slot="noPaddingContent">
       <modify-password ref="drawer"></modify-password>
+      <storehouse></storehouse>
     </template>
   </page>
 </template>
@@ -11,9 +10,10 @@
 <script>
   import { mapState } from 'vuex'
   import modifyPassword from '../../components/modify-password.vue'
+  import storehouse from './storehouse.vue'
   export default {
     name: "index",
-    components: { modifyPassword },
+    components: { modifyPassword, storehouse },
     mounted () {
       this.openNotification()
     },
@@ -88,5 +88,4 @@
 </script>
 
 <style scoped>
-
 </style>

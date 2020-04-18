@@ -12,6 +12,9 @@
         </div>
       </div>
     </div>
+    <div>
+      <slot name="noPaddingContent"></slot>
+    </div>
     <div style="padding: 5px">
       <slot name="content"></slot>
     </div>
