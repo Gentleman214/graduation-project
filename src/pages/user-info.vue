@@ -63,8 +63,7 @@
         <div>
           <span class="item">系统角色：</span>
           <a-radio-group v-model="info.authority" v-if="edit" :disabled="!isManage">
-            <a-radio :value="1">管理员</a-radio>
-            <a-radio :value="2">默认角色</a-radio>
+            <a-radio v-for="item in roleList" :value="item.id" :key="item.id">{{item.name}}</a-radio>
           </a-radio-group>
           <span v-else>{{info.authority === 1 ? '管理员' : '默认角色'}}</span>
         </div>
@@ -121,6 +120,7 @@
         role,
         edit: false,
         isManage: false,
+        roleList: [],
         info: {
           staff_id: '',
           name: '',
@@ -141,6 +141,7 @@
     },
     mounted () {
       this.getUserInfo()
+      this.getRoleList()
     },
     watch:{
       '$route': 'getUserInfo' // 防止在新增用户界面点了个人中心不刷新
@@ -171,6 +172,15 @@
             this.info.role = this.info.role?.length ? this.info.role.split('-') : []
           } else {
             this.$message.error(res.userMsg)
+          }
+        })
+      },
+      getRoleList () {
+        this.$api.role.getRoleList().then(res => {
+          if (res?.code === 200){
+            this.roleList = res.data
+          } else {
+            this.$message.error(res.msg)
           }
         })
       },

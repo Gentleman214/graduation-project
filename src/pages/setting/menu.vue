@@ -106,6 +106,12 @@
         if (params.initVal === params.index) {
           delete params.initVal
         }
+        this.$api.role.editMenu(params).then(res => {
+          if (res?.code === 200) {
+            this.$message.success(res.userMsg)
+            this.getMenu()
+          }
+        })
       }
     }
   }

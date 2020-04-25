@@ -27,5 +27,11 @@ export default {
   },
   getMenuByAuthorityId (authorityId) { // 根据权限ID获取菜单
     return fetch(`/api/role/menu/${authorityId}`)
+  },
+  addOrUpdateRole (params) { // 新增或编辑角色
+    return fetch('/api/role/addOrUpdate', params, 'post')
+  },
+  editMenu (params) { // 编辑菜单
+    return fetch('/api/role/menu/edit', params, 'post')
   }
 }

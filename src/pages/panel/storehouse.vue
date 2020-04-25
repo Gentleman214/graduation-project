@@ -13,7 +13,7 @@
     mounted() {
     },
     methods: {
-      getWidthAndHight () {
+      getWidth () {
       }
     }
   }

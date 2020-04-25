@@ -1,5 +1,8 @@
 <template>
   <page>
+    <template slot="extra">
+      <a-button type="primary" @click="exportExcel">导出</a-button>
+    </template>
     <template slot="content">
       <div class="flex flex-wrap">
         <div class="flex mr-20 mb-5">
@@ -130,6 +133,16 @@
           .finally(() => {
             this.loading = false
           })
+      },
+      exportExcel () {
+        let params = {
+          current: this.pagination.current,
+          size: this.pagination.pageSize,
+          ...this.screening
+        }
+        let url = this.$api.enter.exportEnterBill(params)
+        console.log(url)
+        window.location.href = url
       },
       tableChange (pagination) {
         this.pagination = pagination

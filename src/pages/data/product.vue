@@ -163,6 +163,7 @@
         this.$api.data.getProdutList(params).then(res => {
           if (res?.code === 200) {
             this.list = res.data.records
+            this.pagination.total = res.data.total
           }
         }).finally(() => {
           this.loading = false
