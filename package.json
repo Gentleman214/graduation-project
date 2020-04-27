@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "",
-    "dev": "webpack-dev-server --config build/webpack.config.js --open --host 127.0.0.1 --port 3000 --hot"
+    "dev": "webpack-dev-server --config build/webpack.config.js --open --host 127.0.0.1 --port 3000 --hot",
+    "build": "webpack --config build/webpack.config.js"
   },
   "repository": {
     "type": "git",
